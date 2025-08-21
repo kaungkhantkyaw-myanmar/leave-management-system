@@ -1,19 +1,8 @@
 import type { AppProps } from "next/app";
 import "../styles/globals.scss";
-// import "../styles/Signin.module.scss";
-// import "../styles/CheckInOut.module.scss";
-// import "../styles/LeaveRequests.module.scss";
-// import "../styles/Navbar.module.scss";
-// import "../styles/Sidebar.module.scss";
-// import "../styles/Layout.module.scss";
-// import "../styles/ApplyLeaveModal.module.scss";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// Import LayoutProps and Layout component
 import Layout, { LayoutProps } from "../components/Layout";
-// Import useRouter hook from next/router
 import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -42,12 +31,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       {requiresLayout && activeSidebarLink ? (
-        // Pass the determined activeSidebarLink to the Layout component
         <Layout activeSidebarLink={activeSidebarLink}>
           <Component {...pageProps} />
         </Layout>
       ) : (
-        // Render pages like Login without the Layout wrapper
         <Component {...pageProps} />
       )}
       {/* ToastContainer for global notifications */}

@@ -1,0 +1,46 @@
+.formGroup {
+  margin-bottom: 20px; /* Space below each input group */
+  label {
+    display: block;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  background-color: #f9f9f9; /* Light background */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &::placeholder {
+    color: #aaa;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: #007bff; /* Example focus color */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); /* Example focus ring */
+  }
+}
+
+/* Error State Styling */
+.errorInput {
+  border-color: #e53e3e !important; /* Red border for invalid input */
+  &:focus {
+    border-color: #e53e3e !important;
+    box-shadow: 0 0 0 2px rgba(225, 65, 65, 0.5); /* Example focus ring for error */
+  }
+}
+
+.errorMessage {
+  color: #e53e3e; /* Red text for error messages */
+  font-size: 14px;
+  margin-top: 5px;
+}

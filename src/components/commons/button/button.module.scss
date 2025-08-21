@@ -1,0 +1,50 @@
+.button {
+  display: inline-flex; /* Use flex for better alignment of content */
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  text-decoration: none; /* In case of anchor tags used as buttons */
+  white-space: nowrap; /* Prevent text wrapping */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Variants */
+.primary {
+  background-color: #262626; /* Dark gray/black */
+  color: #fff;
+  &:hover:not(:disabled) {
+    background-color: #111;
+  }
+}
+
+.secondary {
+  background-color: #e0e0e0; /* Light gray */
+  color: #333;
+  border: 1px solid #ccc;
+  &:hover:not(:disabled) {
+    background-color: #ccc;
+    border-color: #bbb;
+  }
+}
+
+.danger {
+  background-color: #dc3545; /* Red */
+  color: #fff;
+  &:hover:not(:disabled) {
+    background-color: #c82333;
+  }
+}
+
+/* Disabled State */
+.button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}

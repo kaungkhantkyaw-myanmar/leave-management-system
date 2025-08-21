@@ -1,14 +1,15 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-
+import { GetServerSideProps } from "next";
 const IndexPage: React.FC = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push("/auth/signin");
-  }, [router]); // Add router to dependency array
-
   return null;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  return {
+    redirect: {
+      destination: "/auth/signin",
+      permanent: false,
+    },
+  };
 };
 
 export default IndexPage;
