@@ -1,0 +1,150 @@
+// styles/CheckInOut.module.scss
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  background: #fff;
+}
+.sidebar {
+  width: 180px;
+  background: #838383;
+  display: flex;
+  flex-direction: column;
+  // border-right: 1px solid #222; // Removed border-right to match screenshot better
+  height: 100vh; // Ensure sidebar takes full height
+}
+.menu-item, .menu-item-active {
+  padding: 16px 22px;
+  font-size: 20px;
+  color: #f1f1f1;
+  cursor: pointer;
+  // Remove border-right from sidebar items
+  border-right: none;
+}
+.menu-item-active {
+  background: #d3d3d3;
+  color: #222;
+}
+.menu-item:not(.menu-item-active) {
+  &:hover {
+    background: #aaa;
+  }
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  // height: 100vh; // Removed to allow content to dictate height if needed
+}
+.header {
+  height: 48px;
+  background: #d3d3d3;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px 0 0;
+}
+
+.header-right { // New class for right side of header
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.request-leave-btn { // Style for Request Leave button in header
+  padding: 4px 14px;
+  font-size: 18px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  margin-right: 12px; // Space it from admin row
+}
+
+.admin-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.admin-btn {
+  padding: 4px 14px;
+  font-size: 18px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+.profile-icon {
+  width: 38px;
+  height: 38px;
+  background: #eee;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #222;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  // height: calc(100vh - 48px); // Removed to allow content to dictate height
+  padding-top: 80px;
+  flex-grow: 1; // Allow content to take available space
+}
+
+.date-row {
+  text-align: center;
+  color: #222;
+  font-size: 22px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.location {
+  font-size: 16px;
+  color: #555;
+}
+.time-row {
+  font-size: 44px;
+  font-weight: 400;
+  margin-bottom: 38px;
+  color: #111;
+}
+
+.btn-row {
+  display: flex;
+  gap: 18px;
+  margin-top: 12px;
+}
+.clockin-btn,
+.clockout-btn {
+  font-size: 28px;
+  border-radius: 18px;
+  padding: 8px 46px;
+  border: none;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.clockin-btn {
+  background: #000;
+  color: #fff;
+}
+.clockin-btn:hover {
+  background: #222;
+}
+.clockout-btn {
+  background: #d3d3d3;
+  color: #444;
+}
+.clockout-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

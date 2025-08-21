@@ -1,0 +1,237 @@
+// styles/LeaveRequests.module.scss
+
+.container, .main, .header, .admin-row, .admin-btn, .profile-icon, .sidebar {
+  min-height: 100vh;
+  display: flex;
+  background: #fff;
+}
+.sidebar {
+  width: 180px;
+  background: #838383;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #222;
+  /* height: 100vh;  <-- REMOVED */
+}
+.menu-item, .menu-item-active {
+  padding: 16px 22px;
+  font-size: 20px;
+  color: #f1f1f1;
+  cursor: pointer;
+}
+.menu-item-active {
+  background: #d3d3d3;
+  color: #222;
+}
+.menu-item:not(.menu-item-active) {
+  &:hover {
+    background: #aaa;
+  }
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Keep this for the main content area to fill the viewport height */
+}
+.header {
+  height: 48px;
+  background: #d3d3d3;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px 0 0;
+}
+.admin-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.admin-btn {
+  padding: 4px 14px;
+  font-size: 18px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+.profile-icon {
+  width: 38px;
+  height: 38px;
+  background: #eee;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #222;
+}
+
+
+// Leave Requests Specific Styles
+.summary-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px 20px;
+  background: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+}
+
+.card {
+  background: #e0e0e0;
+  border-radius: 8px;
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 160px;
+}
+
+.card-value {
+  font-size: 32px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.card-label {
+  font-size: 16px;
+  color: #555;
+}
+
+.renewal-info {
+  font-size: 18px;
+  color: #444;
+  align-self: center;
+  margin-left: auto; /* Push to the right */
+  padding-right: 30px;
+}
+
+.history-section {
+  padding: 20px; /* Reduced top padding */
+  flex-grow: 1; /* Take remaining space */
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px; /* Reduced bottom margin */
+  font-size: 24px;
+  color: #222;
+}
+
+.year-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.year-display {
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  min-width: 80px;
+  text-align: center;
+}
+
+.nav-arrow {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #444;
+  padding: 0 5px;
+}
+
+.request-leave-btn {
+  padding: 8px 18px;
+  font-size: 18px;
+  border-radius: 6px;
+  background-color: #262626;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  &:hover {
+    background: #111;
+  }
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+.history-table th,
+.history-table td {
+  border: 1px solid #ddd;
+  padding: 10px 8px; /* Reduced padding */
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+  vertical-align: top; /* Align content to the top of the cell */
+}
+
+.history-table th {
+  background-color: #f2f2f2;
+  font-weight: 500;
+  font-size: 17px;
+  color: #444;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block; /* Make it an inline block element */
+}
+
+.pending {
+  background-color: #fff3cd; /* Yellow */
+  color: #856404;
+}
+.approved {
+  background-color: #d4edda; /* Green */
+  color: #155724;
+}
+.rejected {
+  background-color: #f8d7da; /* Red */
+  color: #721c24;
+}
+
+/* Styles for the actions button and dropdown */
+.actions-container {
+  cursor: pointer;
+  font-size: 24px; /* Size of the '...' */
+  position: relative; /* Crucial for positioning the dropdown */
+  display: inline-block; /* Ensures it takes minimal width */
+  padding: 0 5px; /* Some spacing around '...' */
+  line-height: 1; /* Adjust line height for better alignment of '...' */
+}
+
+.actions-dropdown {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+  min-width: 100px;
+  top: 100%; /* Position dropdown just below the '...' */
+  right: 0; /* Align to the right of the '...' */
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 15px;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}

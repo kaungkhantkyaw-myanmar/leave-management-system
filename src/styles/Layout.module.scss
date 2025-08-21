@@ -1,0 +1,34 @@
+// styles/Layout.module.scss
+
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.contentWrapper {
+  display: flex;
+  flex: 1; /* Allows contentWrapper to take up remaining height */
+  overflow: hidden; /* Prevents potential scrollbars from nested elements */
+}
+
+.mainContent {
+  flex: 1; /* Allows main content to expand and take available space */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Enables vertical scrolling for main content if it overflows */
+}
+
+/* Make sure the sidebar is fixed or doesn't scroll with main content if needed */
+.sidebar {
+  flex-shrink: 0; /* Prevents sidebar from shrinking */
+  /* If sidebar should have a fixed height and content within it scroll: */
+  /* overflow-y: auto; */
+  /* height: calc(100vh - 48px); /* Adjust based on navbar height */
+}
+
+/* Add styling for the action cell to ensure dropdown positioning works */
+.actionCell {
+  position: relative; /* Necessary for absolute positioning of dropdown */
+}
