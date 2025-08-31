@@ -1,18 +1,32 @@
 import type { AppProps } from "next/app";
 import "../styles/globals.scss";
+
+// Import react-toastify and its CSS
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// Import SessionProvider from next-auth/react
+import { SessionProvider } from "next-auth/react";
+import { Session } from "next-auth"; // Import Session type
+
+// Import LayoutProps and Layout component
 import Layout, { LayoutProps } from "../components/Layout";
 import { useRouter } from "next/router";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter(); // Initialize useRouter
+// Define the AppProps type to include session
+interface MyAppProps extends AppProps {
+  pageProps: {
+    session?: Session | null; // Make session optional
+  };
+}
 
-  // Determine the active sidebar link based on the current route path
+function MyApp({ Component, pageProps }: MyAppProps) {
+  const router = useRouter();
+
+  // Determine the active sidebar link and if layout is required based on pathname
   let activeSidebarLink: LayoutProps["activeSidebarLink"] | undefined;
   let requiresLayout = false;
 
-  // Check the current pathname to set the active link
   if (router.pathname.startsWith("/check-inout")) {
     activeSidebarLink = "check-inout";
     requiresLayout = true;
@@ -23,33 +37,35 @@ function MyApp({ Component, pageProps }: AppProps) {
     activeSidebarLink = "attendance";
     requiresLayout = true;
   } else {
-    // For the login page or any other page that doesn't require the layout
+    // For pages like Login or Password Reset, layout is not required.
     requiresLayout = false;
-    // activeSidebarLink remains undefined, which is handled by requiresLayout = false
   }
 
   return (
     <>
-      {requiresLayout && activeSidebarLink ? (
-        <Layout activeSidebarLink={activeSidebarLink}>
+      {/* Wrap the entire application with SessionProvider */}
+      <SessionProvider session={pageProps.session}>
+        {requiresLayout && activeSidebarLink ? (
+          <Layout activeSidebarLink={activeSidebarLink}>
+            <Component {...pageProps} />
+          </Layout>
+        ) : (
           <Component {...pageProps} />
-        </Layout>
-      ) : (
-        <Component {...pageProps} />
-      )}
-      {/* ToastContainer for global notifications */}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+        )}
+        {/* ToastContainer for global notifications */}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </SessionProvider>
     </>
   );
 }

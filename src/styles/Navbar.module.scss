@@ -1,4 +1,4 @@
-// styles/Navbar.module.scss
+// src/styles/Navbar.module.scss
 .navbar {
   height: 48px;
   background: #d3d3d3;
@@ -14,6 +14,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  /* Add some padding to the right if needed, or ensure button placement is good */
+  padding-right: 10px;
 }
 
 .nav-btn {
@@ -34,5 +36,5 @@
   justify-content: center;
   align-items: center;
   border: 1.5px solid #222;
-  cursor: pointer; /* Make it clickable */
+  cursor: pointer;
 }

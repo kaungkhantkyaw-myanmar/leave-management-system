@@ -1,5 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import styles from "../styles/Sidebar.module.scss";
 
 type ActiveLinkType = "check-inout" | "leave-requests" | "attendance";
@@ -10,6 +11,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeLink }) => {
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const handleNav = (path: string) => {
     router.push(path);
@@ -33,14 +35,17 @@ const Sidebar: React.FC<SidebarProps> = ({ activeLink }) => {
       >
         Leave Requests
       </div>
-      <div
-        className={`${styles["menu-item"]} ${
-          activeLink === "attendance" ? styles["menu-item-active"] : ""
-        }`}
-        onClick={() => handleNav("/attendance")}
-      >
-        Attendance
-      </div>
+      {/* Attendance ကို admin role သာပြမယ် */}
+      {status === "authenticated" && session?.user?.role === "admin" && (
+        <div
+          className={`${styles["menu-item"]} ${
+            activeLink === "attendance" ? styles["menu-item-active"] : ""
+          }`}
+          onClick={() => handleNav("/attendance")}
+        >
+          Attendance
+        </div>
+      )}
     </aside>
   );
 };

@@ -1,8 +1,9 @@
-// pages/attendance.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import styles from "../styles/Attendance.module.scss";
 
-// Dummy data for the table, matching the screenshot's columns and format
+// Dummy data for the table
 const attendanceData = [
   {
     id: 1,
@@ -54,85 +55,79 @@ const attendanceData = [
   },
 ];
 
-// Define the props interface for DateNavigator
+// Date nav component
 interface DateNavigatorProps {
   currentDate: string;
   onPrev: () => void;
   onNext: () => void;
 }
-
-// Component for the date navigation in the header
 const DateNavigator: React.FC<DateNavigatorProps> = ({
   currentDate,
   onPrev,
   onNext,
-}) => {
-  return (
-    <div className={styles["date-navigator"]}>
-      <button className={styles["nav-arrow"]} onClick={onPrev}>
-        &#9664;
-      </button>
-      <span className={styles["current-date"]}>{currentDate}</span>
-      <button className={styles["nav-arrow"]} onClick={onNext}>
-        &#9654;
-      </button>
-    </div>
-  );
-};
+}) => (
+  <div className={styles["date-navigator"]}>
+    <button className={styles["nav-arrow"]} onClick={onPrev}>
+      &#9664;
+    </button>
+    <span className={styles["current-date"]}>{currentDate}</span>
+    <button className={styles["nav-arrow"]} onClick={onNext}>
+      &#9654;
+    </button>
+  </div>
+);
 
 const AttendancePage: React.FC = () => {
-  // State for the current date displayed in the header
-  const [currentDate, setCurrentDate] = useState("2025 Aug 1");
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
-  // State for search term and filtered data
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.role !== "admin") {
+      router.replace("/");
+    }
+  }, [status, session, router]);
+
+  // States
+  const [currentDate, setCurrentDate] = useState("2025 Aug 1");
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredData, setFilteredData] = useState(attendanceData);
 
-  // --- Date Navigation Handlers ---
+  // Date Navigation Handlers
   const handlePrevDate = () => {
-    // Basic date decrement logic. For a real app, use a date library like date-fns or moment.js.
-    const currentDateParts = currentDate.split(" ");
-    const day = parseInt(currentDateParts[2]);
+    const parts = currentDate.split(" ");
+    const day = parseInt(parts[2]);
     if (!isNaN(day) && day > 1) {
-      setCurrentDate(
-        `${currentDateParts[0]} ${currentDateParts[1]} ${day - 1}`
-      );
-    } else {
-      console.log("Need logic for changing month/year.");
+      setCurrentDate(`${parts[0]} ${parts[1]} ${day - 1}`);
     }
   };
-
   const handleNextDate = () => {
-    // Basic date increment logic.
-    const currentDateParts = currentDate.split(" ");
-    const day = parseInt(currentDateParts[2]);
+    const parts = currentDate.split(" ");
+    const day = parseInt(parts[2]);
     if (!isNaN(day)) {
-      setCurrentDate(
-        `${currentDateParts[0]} ${currentDateParts[1]} ${day + 1}`
-      );
-    } else {
-      console.log("Need logic for changing month/year.");
+      setCurrentDate(`${parts[0]} ${parts[1]} ${day + 1}`);
     }
   };
 
-  // --- Search Functionality ---
+  // Search
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
-    const results = attendanceData.filter(
-      (item) =>
-        item.staffName.toLowerCase().includes(term) ||
-        item.staffId.includes(term)
+    setFilteredData(
+      attendanceData.filter(
+        (item) =>
+          item.staffName.toLowerCase().includes(term) ||
+          item.staffId.includes(term)
+      )
     );
-    setFilteredData(results);
   };
 
-  // Set the display name for _app.tsx to manage layout context
-  AttendancePage.displayName = "AttendancePage";
+  if (status === "loading") return <div>Loading...</div>;
+  if (status === "authenticated" && session?.user?.role !== "admin") {
+    return <div>Forbidden: You don&apos;t have access to this page.</div>;
+  }
 
   return (
     <>
-      {/* Header Section (Simplified) */}
       <div className={styles["attendance-header"]}>
         <div className={styles["attendance-title-container"]}>
           <h1 className={styles.title}>Attendance</h1>
@@ -163,10 +158,8 @@ const AttendancePage: React.FC = () => {
               onChange={handleSearch}
             />
           </div>
-          {/* No Report or Add buttons are shown in this specific screenshot */}
         </div>
       </div>
-
       {/* Table Section */}
       <div className={styles["table-section"]}>
         <table className={styles["attendance-table"]}>
@@ -207,5 +200,5 @@ const AttendancePage: React.FC = () => {
     </>
   );
 };
-
+AttendancePage.displayName = "AttendancePage";
 export default AttendancePage;
